@@ -1,4 +1,6 @@
 # Write your code below game_hash
+require "pry"
+
 def game_hash
   {
     home: {
@@ -127,3 +129,119 @@ def game_hash
 end
 
 # Write code here
+
+def num_points_scored(name)
+  
+  game_hash.each do |location, stats|
+   stats.each do |teams, values|
+     if teams == :players
+      values.each do |team|
+        if team[:player_name] == name
+          return team[:points]
+        end
+      end
+    end
+   end 
+  end
+  
+end
+
+def shoe_size(name)
+  
+  game_hash.each do |location, stats|
+   stats.each do |teams, values|
+     if teams == :players
+      values.each do |team|
+        if team[:player_name] == name
+          return team[:shoe]
+        end
+      end
+    end
+   end 
+  end
+  
+end
+
+def team_colors(team_name)
+  
+  game_hash.each do |location, stats|
+   stats.each do |teams, values|
+     if teams == :team_name && team_name == values
+       return stats[:colors]
+     end
+   end
+ end
+end
+
+def team_names
+  names = Array.new
+  game_hash.each do |location, stats|
+    stats.each do |teams, values|
+      if teams == :team_name 
+        names << values
+      end
+    end
+  end
+  return names
+end
+
+def player_numbers(team_name)
+  numbers = Array.new
+  game_hash.each do |location, stats|
+    if stats[:team_name] == team_name
+      stats.each do |teams, values|
+        if teams == :players 
+          values.each do |team|
+            numbers << team[:number]
+          end
+        end
+      end
+    end
+  end
+  return numbers 
+end
+
+def player_stats(name)
+  
+  game_hash.each do |location, stats|
+   stats.each do |teams, values|
+     if teams == :players
+      values.each do |team|
+        if team[:player_name] == name
+          return team
+        end
+      end
+    end
+   end 
+  end
+  
+end
+
+def big_shoe_rebounds
+  shoe_size = 0 
+  rebounds = 0 
+  game_hash.each do |location, stats|
+   stats.each do |teams, values|
+     if teams == :players
+      values.each do |team|
+        if team[:shoe] >= shoe_size
+          rebounds = team[:rebounds]
+          shoe_size = team[:shoe]
+        end
+      end
+    end
+   end 
+  end
+  return rebounds
+end
+
+
+
+
+
+
+
+
+
+
+
