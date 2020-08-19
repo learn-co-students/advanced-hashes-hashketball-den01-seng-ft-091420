@@ -1,4 +1,5 @@
 # Write your code below game_hash
+require 'pry'
 def game_hash
   {
     home: {
@@ -127,3 +128,93 @@ def game_hash
 end
 
 # Write code here
+def num_points_scored(player_name)
+  player_points = nil
+  game_hash.each do |location, team_data|
+    team_data[:players].each do |player_stats|
+      if player_stats[:player_name] == player_name
+          player_points = player_stats[:points]
+      end
+    end
+  end
+  player_points
+end
+
+
+def shoe_size(player_name)
+  player_shoe = nil
+  game_hash.each do |location, team_data|
+    team_data[:players].each do |player_stats|
+      if player_stats[:player_name] == player_name
+        player_shoe = player_stats[:shoe]
+      end
+    end
+  end
+  player_shoe
+end
+
+
+def team_colors(team)
+  color = nil
+  game_hash.each do |location, team_data|
+    if team_data[:team_name] == team
+      color = team_data[:colors]
+    end
+  end
+  color
+end
+
+def team_names
+  team = []
+  game_hash.each do |location, team_data|
+     team << team_data[:team_name]
+  end
+  team
+end
+
+def player_numbers(team_name)
+  jersey_numbers = Array.new
+  game_hash.map do |location, team_data|
+    if team_data[:team_name] == team_name
+      team_data.each do |data_item, data_value|
+        if data_item == :players
+          data_value.each do |player|
+          jersey_numbers << (player[:number])
+          end
+        end
+      end
+    end
+  end
+  jersey_numbers
+end
+
+def player_stats(player_name)
+  game_hash.each do |location, team_data|
+      team_data.each do |data_item, data_value|
+        if data_item == :players
+          data_value.each do |player|
+            if player_name == player[:player_name]
+             player.delete [:player_name]
+             return player
+            end
+          end
+        end
+      end
+   end
+end
+
+def big_shoe_rebounds
+big_shoe = 0 
+rebounds = 0 
+
+game_hash.each do |location, team_data|
+  team_data[:players].each do |player|
+    if player[:shoe] > big_shoe
+      big_shoe = player[:shoe]
+      rebounds = player[:rebounds]
+    end
+  end
+end
+rebounds
+end
+   
