@@ -1,4 +1,6 @@
 # Write your code below game_hash
+require 'pry'
+
 def game_hash
   {
     home: {
@@ -126,4 +128,77 @@ def game_hash
   }
 end
 
-# Write code here
+def num_points_scored(player_name)
+  game_hash.each do | key, value |
+    value[:players].each do |element|
+      if element[:player_name] == player_name
+        return element[:points]
+      end
+    end
+  end
+end
+
+def shoe_size(player_name)
+  game_hash.each do | key, value |
+    value[:players].each do |element|
+      if element[:player_name] == player_name
+        return element[:shoe]
+      end
+    end
+  end
+end
+
+def team_colors(team_name)
+  game_hash.each do | key, value |
+    if value[:team_name] == team_name
+      return value[:colors]
+    end
+  end
+end
+
+def team_names
+  teams = []
+
+  game_hash.each do | key, value |
+    teams << value[:team_name]
+  end
+  teams
+end
+
+def player_numbers(team_name)
+  jersey_numbers = []
+
+  game_hash.each do | key, value |
+    if value[:team_name] == team_name
+      value[:players].each do |element|
+        jersey_numbers << element[:number]
+      end
+    end
+  end
+  jersey_numbers
+end
+
+def player_stats(player_name)
+  game_hash.each do | key, value |
+    value[:players].each do |element|
+      if element[:player_name] == player_name
+        return element
+      end
+    end
+  end
+end
+
+def big_shoe_rebounds
+  biggest_size = 0
+  big_rebound = 0
+
+  game_hash.each do | key, value |
+    value[:players].each do |element|
+      if element[:shoe] > biggest_size
+        biggest_size = element[:shoe]
+        big_rebound = element[:rebounds]
+      end
+    end
+  end
+  big_rebound
+end
