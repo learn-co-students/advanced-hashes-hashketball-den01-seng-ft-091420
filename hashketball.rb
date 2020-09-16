@@ -1,4 +1,5 @@
 # Write your code below game_hash
+require 'pry'
 def game_hash
   {
     home: {
@@ -127,3 +128,128 @@ def game_hash
 end
 
 # Write code here
+
+
+def all_players
+    home_players = game_hash[:home][:players]
+    away_players = game_hash[:away][:players]
+    players = home_players.concat(away_players)
+    # can be simplified to
+    # game_hash[:home][:players].concat game_hash[:home][:players]
+end
+
+
+
+def find_player(name)
+  all_players.find do |player|
+    player[:player_name] == name
+  end
+end
+
+
+
+
+def all_teams
+  game_hash.values
+end
+
+def find_team(team_name)
+  all_teams.find do |team|
+    team[:team_name] == team_name
+  end
+end
+
+def num_points_scored(player_name)
+  find_player(player_name)[:points]
+end
+
+p num_points_scored("Kemba Walker")
+
+
+# #method 1 -- success
+
+
+
+def shoe_size player_name
+  find_player(player_name)[:shoe]
+end
+
+p shoe_size("Kemba Walker")
+
+
+#method 2 -- Success
+
+def team_colors(team_name)
+
+  if team_name == game_hash[:home][:team_name]
+    p game_hash[:home][:colors]
+  else
+    p game_hash[:away][:colors]
+  end
+find_team(team_name)[:colors]
+
+### can be refactored to
+    # team_name == game_hash[:home][:team_name] ? game_hash[:home][:colors] : game_hash[:away][:colors]
+end
+
+#
+#
+def team_names
+  [game_hash[:home][:team_name], game_hash[:away][:team_name]]
+end
+
+
+
+
+#Helper methods
+          def home_player_numbers
+            game_hash[:home][:players].map do |key, value|
+              key[:number]
+            end
+          end
+          p home_player_numbers
+
+          def away_player_numbers
+            game_hash[:away][:players].map do |key, value|
+              key[:number]
+            end
+          end
+          p away_player_numbers
+#End Helper Methods
+
+
+def player_numbers(team_name)
+  if team_name == "Brooklyn Nets"
+    home_player_numbers
+  else
+    away_player_numbers
+  end
+end
+
+p player_numbers("Brooklyn Nets")
+
+
+def player_stats(player_name)
+    all_players.find do |player|
+      player[:player_name] == player_name
+    end
+    # binding.pry
+end
+
+p player_stats("Kemba Walker")
+
+
+# end
+#
+# p player_numbers("Brooklyn Nets")
+# #
+#
+#
+#
+# def player_numbers(team_name)
+#   game_hash.each do |home_away, team_info|
+#
+#
+# def player_stats (player_name)
+#   find_player(player_name)
+# end
