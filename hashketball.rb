@@ -239,6 +239,23 @@ end
 p player_stats("Kemba Walker")
 
 
+def big_shoe_rebounds
+
+  def sort
+    all_players.sort do |a, b|
+      b[:shoe] <=> a[:shoe]
+    end
+  end
+
+  sort[0][:rebounds]
+
+end
+
+p big_shoe_rebounds
+
+
+
+
 # end
 #
 # p player_numbers("Brooklyn Nets")
